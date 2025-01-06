@@ -1,4 +1,4 @@
-![alt text](https://github.com/wevixgracz/Roblox_cache_extractor/blob/master/github/aogjuhg_xd.png "preview")
+![alt text](https://raw.githubusercontent.com/PanBarrier/Roblox_cache_extractor/refs/heads/master/github/dobdobyesyes.png "preview")
 
 This thing extracts cache files from your computer to destination directory audio, videos and images (ogg, png, wav, mp4).
 
