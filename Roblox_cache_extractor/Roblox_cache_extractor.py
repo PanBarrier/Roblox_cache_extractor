@@ -1,8 +1,6 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
-from PIL import Image
-import imageio
 
 def get_roblox_directory():
     return os.path.join(os.path.expanduser("~"), "AppData\\Local\\Temp\\Roblox\\http")
@@ -11,7 +9,7 @@ def process_files(source_dir, destination_dir):
     status_label.config(text="Processing files...")
     root.update()
     for filename in os.listdir(source_dir):
-        if any(filename.endswith(ext) for ext in [".ogg", ".png", ".mp4", ".wav", ".ktx"]):
+        if any(filename.endswith(ext) for ext in [".ogg", ".png", ".mp4", ".wav"]):
             continue
         file_path = os.path.join(source_dir, filename)
         with open(file_path, 'rb') as file:
@@ -20,7 +18,6 @@ def process_files(source_dir, destination_dir):
             png_index = content.find(b'\x89PNG')
             mp4_index = content.find(b'ftyp')
             wav_index = content.find(b'RIFF')
-            ktx_index = content.find(b"\xABKTX 11\xBB")
 
             if oggs_index != -1:
                 content = content[oggs_index:]
@@ -34,25 +31,6 @@ def process_files(source_dir, destination_dir):
             elif wav_index != -1:
                 content = content[wav_index:]
                 new_filename = os.path.splitext(filename)[0] + ".wav"
-            elif ktx_index != -1:
-                content = content[ktx_index:]
-                temp_ktx_file = os.path.join(destination_dir, os.path.splitext(filename)[0] + ".ktx")
-                new_filename = os.path.splitext(filename)[0] + ".png"
-                
-                # Save KTX file temporarily
-                with open(temp_ktx_file, 'wb') as temp_file:
-                    temp_file.write(content)
-                
-                # Convert KTX to PNG
-                try:
-                    image = imageio.imread(temp_ktx_file, format="ktx")
-                    png_file_path = os.path.join(destination_dir, new_filename)
-                    Image.fromarray(image).save(png_file_path)
-                    os.remove(temp_ktx_file)  # Remove the temporary KTX file
-                except Exception as e:
-                    status_label.config(text=f"Error converting KTX to PNG: {e}")
-                    continue
-                continue
             else:
                 continue
         with open(os.path.join(destination_dir, new_filename), 'wb') as new_file:
