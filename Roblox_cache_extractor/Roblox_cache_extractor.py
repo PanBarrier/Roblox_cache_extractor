@@ -122,7 +122,7 @@ clear_dest_button.grid(row=2, column=2, columnspan=2, padx=5, pady=5)
 status_label = tk.Label(root, text="", background='#2B2B2B', foreground='white')
 status_label.grid(row=3, column=0, columnspan=4, padx=5, pady=5)
 
-footer_label = tk.Label(root, text="Made by PanBarrier  discord.gg/W7SsqwCUS2", fg="#00ff81", background='#2B2B2B')
+footer_label = tk.Label(root, text="Made by PanBarrier discord.gg/W7SsqwCUS2", fg="#00ff81", background='#2B2B2B')
 footer_label.grid(row=4, column=0, columnspan=4, pady=10)
 
 root.mainloop()
